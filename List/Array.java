@@ -1,8 +1,5 @@
 package DataStucture.List;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 class Array {
     public static int searchElement(int[] a, int key) {
         for (int i = 0; i < a.length; i++) {
@@ -102,26 +99,25 @@ class Array {
 
     public static void mergeSort(int[] array) {
         divide(array, 0, array.length - 1);
-
     }
 
     private static void divide(int[] array, int startIndex, int endIndex) {
         if (startIndex >= endIndex) {
             return;
         }
-        int mid = (startIndex + endIndex) / 2;
+        int mid = startIndex + (endIndex - startIndex) / 2;
         divide(array, startIndex, mid);
         divide(array, mid + 1, endIndex);
         merge(array, startIndex, mid, endIndex);
     }
 
     private static void merge(int[] array, int startIndex, int mid, int endIndex) {
-        int[] newArray = new int[(endIndex - startIndex) + 1];
+        int[] newArray = new int[endIndex - startIndex + 1];
         int i = startIndex;
         int j = mid + 1;
         int k = 0;
         while (i <= mid && j <= endIndex) {
-            if (array[i] < array[j]) {
+            if (array[i] <= array[j]) {
                 newArray[k++] = array[i++];
             } else {
                 newArray[k++] = array[j++];
@@ -133,9 +129,8 @@ class Array {
         while (j <= endIndex) {
             newArray[k++] = array[j++];
         }
-        // for (int idx = 0; idx < newArray.length; idx++) {
-        // array[idx] = newArray[idx];
-        // }
-        System.out.println(Arrays.toString(newArray));
+        for (int idx = 0, idx2 = startIndex; idx < newArray.length; idx++, idx2++) {
+            array[idx2] = newArray[idx];
+        }
     }
 }
